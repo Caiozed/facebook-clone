@@ -1,0 +1,10 @@
+<h1>My posts:</h1>
+<ul>
+	<% @posts.each do |post| %>
+		<li>
+			<h2><%= post.author %></h2>
+			<p><%= post.content%></p>
+			<%= link_to "Enter", post_path(post) %>
+		</li>
+	<%end%>
+</ul>

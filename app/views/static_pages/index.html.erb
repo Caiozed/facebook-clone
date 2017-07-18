@@ -1,2 +1,35 @@
-<h1>StaticPages#index</h1>
-<p>Find me in app/views/static_pages/index.html.erb</p>
+<h1>Write a post:</h1>
+<%= form_for :post, url: posts_path do |f|%>
+	<%= f.label :author %>	
+	<%= f.text_field :author %>
+
+	<%= f.label :content%>
+	<%= f.text_area :content%>
+
+	<%= f.submit "Create" %>
+<%end%>
+
+<h2>Friends:</h2>
+<ul>
+	<% if @friends %>
+		<% @friends.each do |friend|%>
+			<li><%= friend.email %></li>
+		<%end%>
+	<%end%>
+</ul>
+
+<h2>All users:</h2>
+<ul>
+	<% if @users %>
+		<% @users.each do |user|%>
+			<%if !current_user.is_friend?(user) && user != current_user%>
+				<%= form_for :request, url: requests_path do |f| %>
+					<li><%= user.email %>, 
+					<%= f.hidden_field :receiver_id, value: user.id%>
+					<%= f.submit "Befriend"%>		
+					</li>
+				<%end%>
+			<%end%>
+		<%end%>
+	<%end%>
+</ul>
