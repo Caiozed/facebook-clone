@@ -1,9 +1,16 @@
-<h1>My posts:</h1>
+<h1>All posts:</h1>
 <ul>
 	<% @posts.each do |post| %>
 		<li>
 			<h2><%= post.author %></h2>
 			<p><%= post.content%></p>
+			<% unless post.likes.find_by(user_id: current_user.id)%>
+				<%= link_to "Like", post_likes_path(post.id), method: :post %>
+			<%else%>
+				<%= link_to "Unlike", 
+						post_like_path(post.id, 
+						Like.find_by(post_id: post.id, user_id: current_user.id).id), method: :delete %>
+			<%end%>
 			<%= link_to "Enter", post_path(post) %>
 		</li>
 	<%end%>

@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-	validates :content, presence: true
-	belongs_to :póst
+	default_scope -> {order(updated_at: :desc)}
+	belongs_to :post
 	belongs_to :user
 end

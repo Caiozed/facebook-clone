@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :posts
   has_many :comments
+  has_many :likes
 
   has_many :user_friendships,  foreign_key: "user_id"
   has_many :friends, through: :user_friendships, foreign_key: "user_id"

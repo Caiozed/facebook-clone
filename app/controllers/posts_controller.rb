@@ -2,7 +2,9 @@ class PostsController < ApplicationController
 	before_action :is_logged_in?  
 	def create
 		post = current_user.posts.build(post_params)
+		pic = Picture.new(imageable: post, name: image_params[:image])
 		if post.save
+			pic.save
 			redirect_to post_path(post)
 		else
 			redirect_to root_url
@@ -10,7 +12,7 @@ class PostsController < ApplicationController
 	end
 
 	def index
-		@posts = current_user.posts
+		@posts = Post.all
 	end
 
 	def show
@@ -20,5 +22,9 @@ class PostsController < ApplicationController
 
 	def post_params
 		params.require(:post).permit(:author, :content)
+	end
+
+	def image_params
+		params.require(:post).permit(:image)
 	end
 end

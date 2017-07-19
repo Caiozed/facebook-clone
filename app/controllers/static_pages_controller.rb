@@ -1,8 +1,9 @@
 class StaticPagesController < ApplicationController
+  before_action :is_logged_in?,
   def index
-  	if user_signed_in?
   		@users = User.all
   		@friends = current_user.friends
-  	end
   end
+
+ 
 end
