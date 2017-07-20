@@ -12,6 +12,9 @@
 						Like.find_by(post_id: post.id, user_id: current_user.id).id), method: :delete %>
 			<%end%>
 			<%= link_to "Enter", post_path(post) %>
+			<% if post.user == current_user %>
+				<%= link_to "Delete", post_path(post), method: :delete%>
+			<%end%>
 		</li>
 	<%end%>
 </ul>

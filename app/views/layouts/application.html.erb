@@ -16,7 +16,7 @@
 		<p><%= current_user.email %></p>
 		<%= link_to 'Home', root_path %>
 		<%= link_to 'My profile', user_path(current_user.id) %>
-		<%= link_to 'My posts', posts_path %>
+		<%= link_to 'Posts feed', posts_path %>
 		<%= link_to 'Sign out', destroy_user_session_path, method: :delete  %>
 		<ul>
 			<% current_user.requests.each do |request| %>

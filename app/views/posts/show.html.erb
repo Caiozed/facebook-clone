@@ -24,6 +24,10 @@
 	<%= f.label :content%>
 	<%= f.text_area :content%>
 
+
+		<%= f.label :image%>
+		<%= f.file_field :image, accept: ".jpg, .jpeg, .gif, .png"%>
+
 	<%= f.submit "Create" %>
 <%end%>
 
@@ -32,6 +36,12 @@
 <%if @comments%>
 	<% @comments.each do |comment|%>
 		<h3><%= comment.user.email %>:</h3>
+		<% if comment.picture %>
+			<%= image_tag comment.picture.name.url%>
+		<%end%>
 		<p><%= comment.content %></p>
+		<% if comment.user == current_user %>
+				<%= link_to "Delete", post_comment_path(@post, comment), method: :delete%>
+			<%end%>
 	<%end%>
 <%end%>

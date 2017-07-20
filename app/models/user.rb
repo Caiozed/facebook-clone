@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def is_friend?(friend)
   	user_friendships.find_by(friend_id: friend.id) 
   end
+  
+  def request_sent?(user) 
+  	Request.find_by(issuer_id: self.id, receiver_id: user.id)
+  end
 end

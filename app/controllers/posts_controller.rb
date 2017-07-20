@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 		post = current_user.posts.build(post_params)
 		pic = Picture.new(imageable: post, name: image_params[:image])
 		if post.save
-			pic.save
+			pic.save 
 			redirect_to post_path(post)
 		else
 			redirect_to root_url
@@ -18,6 +18,12 @@ class PostsController < ApplicationController
 	def show
 		@post = Post.find(params[:id])
 		@comments = @post.comments
+	end
+
+	def destroy 
+		post = Post.find(params[:id])
+		post.destroy
+		redirect_to posts_path
 	end
 
 	def post_params

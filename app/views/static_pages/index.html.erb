@@ -8,8 +8,8 @@
 		<%= f.label :content%>
 		<%= f.text_area :content%>
 
-			<%= f.label :image%>
-		<%= f.file_field :image%>
+		<%= f.label :image%>
+		<%= f.file_field :image, accept: ".jpg, .jpeg, .gif, .png"%>
 
 		<%= f.submit "Create" %>
 	<%end%>
@@ -27,7 +27,10 @@
 	<ul>
 		<% if @users %>
 			<% @users.each do |user|%>
-				<%if !current_user.is_friend?(user) && user != current_user%>
+				<%if !current_user.is_friend?(user) &&
+				 user != current_user && 
+				 !user.request_sent?(current_user) &&
+				 !current_user.request_sent?(user)%>
 					<%= form_for :request, url: requests_path do |f| %>
 						<li><%= user.email %>, 
 						<%= f.hidden_field :receiver_id, value: user.id%>

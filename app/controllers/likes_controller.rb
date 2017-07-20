@@ -2,10 +2,11 @@ class LikesController < ApplicationController
 	before_action :is_logged_in?
 	def create 
 		post = Post.find(params[:post_id])
-		if post.likes.create(user_id: current_user.id)
-			redirect_to post_path(post)
+		like = post.likes.build(user_id: current_user.id)
+		if like.save
+			redirect_back fallback_location: root_path 
 		else
-			redirect_to post_path(post)
+			redirect_back fallback_location: root_path 
 		end
 	end
 
@@ -13,7 +14,7 @@ class LikesController < ApplicationController
 		like = Like.find(params[:id])
 		post = Post.find(params[:post_id])
 		if like.destroy
-			redirect_to post_path(post)
+			redirect_back fallback_location: root_path 
 		end
 	end
 end
